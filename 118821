@@ -1,0 +1,52 @@
+#os.system('pip install telebot')
+import telebot
+
+import logging
+import flask
+
+import sys
+import re
+import json
+import decorator
+from subprocess import Popen, PIPE
+
+bot = telebot.TeleBot("1387917031:AAF4mSB32O1fYzIOjST8v-K6b5kk3Jj6kzM")
+
+
+@bot.message_handler(commands=['start', 'help'])
+def send_welcome(message):
+	bot.reply_to(message, "/id مرحبا بك في بوت معرفة الايدي اضغط /id ")
+	
+	
+
+
+
+
+@bot.message_handler(commands=["id"])
+
+def id(message):
+	bot.send_message(message.chat.id , text = "Id :" +str(message.chat.id) +"\nusername :  @"+str(message.from_user.username)+ "  update now  :"+str(message.text) +"\n"+str(message.from_user.first_name) +"\n " +str(message.from_user.last_name))
+	
+	
+@bot.message_handler(func=lambda m :True)
+def tex(message):
+	doc = open('Test.txt','rb')
+	bot.send_document(message.chat.id,doc)
+	
+	
+@bot.message_handler(func=lambda m :True)
+def Photo(message):
+	document=open('photo.png', 'rb')
+	bot.send_document(message.chat.id,document)
+	#documents=open('photo.png', 'rb')
+
+
+
+
+
+
+def Photo(message):
+	bot.send_photo(message.chat.id,photo=open("photo.png", 'rb'))
+	
+	
+bot.polling(True)
